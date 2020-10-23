@@ -1,0 +1,11 @@
+{
+    "name": "EmlParserV2",
+    "license": "AGPL-V3",
+    "version": "1.0",
+    "author": "Jonathan Brooke",
+    "url": "None",
+    "description": "EML Parser for TheHive - No Regex Required",
+    "baseConfig": "EmlParser",
+    "dataTypeList": ["file"],
+    "command": "EmlParserV2/parse.py"
+}
