@@ -1,0 +1,129 @@
+<style></style>
+
+<!-- Success -->
+<div class="panel panel-info" ng-if="content">
+    <div class="panel-heading" ng-model="collapsed" ng-click="collapsed=!collapsed">
+        <u>Summary (Click To Expand)</u>
+    </div>
+    <div class="panel-body" ng-show="collapsed">
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>Subject</dt>
+                    <dd class="wrap">{{content.subject}}</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal" ng-if="content.from">
+                    <dt>Sender</dt>
+                    <dd class="wrap">{{content.from}}</dd>
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <dl class="dl-horizontal" ng-if="content.to" id="recipient">
+                    <dt>Recipient</dt>
+                    <dd class="wrap">{{content.to}}</dd>
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <dl class="dl-horizontal" ng-if="content.date">
+                    <dt>Date</dt>
+                    <dd class="wrap">{{content.date}}</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-info" ng-if="content.attachment">
+    <div class="panel-heading" ng-model="collapsed" ng-click="collapsed=!collapsed">
+        <u>Attachment/s (Click To Expand)</u>
+        - Please Upload These Attachments Manually To TheHive Case!
+    </div>
+    <div class="panel-body" ng-show="collapsed">
+        <table class="table table-hover">
+            <tr>
+                <th>Filename</th>
+                <th>Size (Bytes)</th>
+                <th>Extension</th>
+                <th>Hash - SHA256</th>
+                <th>Hash - SHA1</th>
+                <th>Hash - MD5</th>
+            </tr>
+            <tr ng-repeat="(key, val) in content.attachment">
+                <td> {{val['filename']}} </td>
+                <td> {{val['size']}} </td>
+                <td> {{val['extension']}} </td>
+                <td> {{val['hash']['sha256']}} </td>
+                <td> {{val['hash']['sha1']}} </td>
+                <td> {{val['hash']['md5']}} </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-info" ng-if="content">
+    <div class="panel-heading" ng-model="collapsed" ng-click="collapsed=!collapsed">
+        <u>Authentication & Security Details (Click To Expand)</u>
+    </div>
+    <div class="panel-body" ng-show="collapsed">
+        <dl class="dl-horizontal" ng-if="content.spf">
+            <dt>SPF/DKIM</dt>
+            <dd>{{content.spf}}</dd>
+        </dl>
+        <dl class="dl-horizontal" ng-if="content.dkimsignature">
+            <dt>DKIM Signature</dt>
+            <dd>{{content.dkimsignature}}</dd>
+        </dl>
+    </div>
+</div>
+
+<div class="panel panel-info" ng-if="content.received">
+    <div class="panel-heading" ng-model="collapsed" ng-click="collapsed=!collapsed">
+        <u>Mail Routing (Click To Expand)</u>
+    </div>
+    <div class="panel-body" ng-show="collapsed">
+        <table class="table table-hover">
+            <tr>
+                <th>From</th>
+                <th>By</th>
+                <th>With</th>
+                <th>For</th>
+                <th>Date Time</th>
+            </tr>
+            <tr ng-repeat="(key, val) in content.received">
+                <td> {{val['from']}} </td>
+                <td> {{val['by']}} </td>
+                <td> {{val['with']}} </td>
+                <td> {{val['for']}} </td>
+                <td> {{val['date']}} </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-info" ng-if="content.body">
+    <div class="panel-heading" ng-model="collapsed" ng-click="collapsed=!collapsed">
+        <u>Email Body (Click To Expand)</u>
+    </div>
+    <div class="panel-body" ng-show="collapsed">
+        <dd>
+            <pre>{{content.body}}</pre>
+        </dd>
+    </div>
+</div>
+
+<!-- General error  -->
+<div class="panel panel-danger" ng-if="!success">
+    <div class="panel-heading">
+        <strong>{{(artifact.data || artifact.attachment.name) | fang}}</strong>
+    </div>
+    <div class="panel-body">
+        <dl class="dl-horizontal" ng-if="content.errorMessage">
+            <dt><i class="fa fa-warning"></i> EML Parser: </dt>
+            <dd class="wrap">{{content.errorMessage}}</dd>
+        </dl>
+    </div>
+</div>
